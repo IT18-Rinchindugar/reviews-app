@@ -17,10 +17,10 @@ const Header = ({ title, back, backButtonColor = "black" }) => {
           />
         </TouchableOpacity>
       ) : (
-        <View />
+        <View style={{ width: 24 }} />
       )}
       <Text style={styles.textStyle}>{title}</Text>
-      <View />
+      <View style={{ width: 24 }} />
     </View>
   );
 };

@@ -1,10 +1,21 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import logo from "../../assets/logo.png";
 
 const ScannerBanner = ({ navigation }) => {
   return (
     <View style={styles.bannerContainer}>
-      <Text>Barcode Scanner</Text>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Image style={{ width: 100, height: 80 }} source={logo} />
+        <View style={{ width: 200 }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+            Barcode Scanner
+          </Text>
+          <Text style={{ fontSize: 12, marginTop: 4 }}>
+            Бүртээгдэхүүнийг таних Barcode унших хэсэг
+          </Text>
+        </View>
+      </View>
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.bannerButton}
@@ -34,6 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#2ED279",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 16,
   },
 });
 

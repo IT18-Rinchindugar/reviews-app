@@ -27,7 +27,7 @@ const BarCodeScannerScreen = () => {
 
   const fetchProductByBarcode = async (barcode) => {
     await axios
-      .get(`http://192.168.1.86:3000/scanners/${barcode}`)
+      .get(`https://json-server-123456789.herokuapp.com/reviews/${barcode}`)
       .then((res) => {
         setProductData(res.data);
         setLoading(false);
@@ -35,9 +35,10 @@ const BarCodeScannerScreen = () => {
       .catch((err) => {
         setScanned(false);
         showMessage({
-          message: "Бараа байхгүй",
-          description: "Энэ бараа одоогоор бүртгэлгүй байна.",
+          message: "Бүртээгдэхүүн байхгүй",
+          description: "Энэ бүртээгдэхүүн одоогоор бүртгэлгүй байна.",
           type: "warning",
+          duration: 2000,
         });
       });
   };

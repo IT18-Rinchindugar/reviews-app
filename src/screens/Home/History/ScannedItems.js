@@ -17,8 +17,9 @@ const ScannedItems = ({ contentType }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const fetchData = async (type) => {
-    const res = await axios.get(`http://192.168.1.86:3000/${type}`);
-    console.log(res.data);
+    const res = await axios.get(
+      `https://json-server-123456789.herokuapp.com/${type}`
+    );
     setData(res.data);
     setLoading(false);
   };

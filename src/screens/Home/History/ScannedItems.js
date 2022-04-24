@@ -42,9 +42,11 @@ const ScannedItems = ({ contentType }) => {
         data.length > 0 &&
         data.map((d) => (
           <TouchableOpacity
+            key={d.id}
             onPress={() =>
               navigation.navigate("ReviewsDetail", {
                 productName: d.productName,
+                data: d,
               })
             }
             activeOpacity={0.7}

@@ -40,7 +40,7 @@ const UserRatingFormModal = ({ isModalVisible, setModalVisible }) => {
             onPress={() => {
               showMessage({
                 message: "Амжилттай",
-                description: "Бараа сэтгэгдэл илгээгдлээ",
+                description: "Бүртээгдэхүүний сэтгэгдэл илгээгдлээ",
                 type: "success",
                 duration: 2000,
               });

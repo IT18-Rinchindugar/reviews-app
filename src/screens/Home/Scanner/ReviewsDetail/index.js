@@ -13,9 +13,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../../../../components/Header";
 import Ratings from "../components/Ratings";
 import UserRatingFormModal from "../UserRatingFormModal";
+import { showMessage } from "react-native-flash-message";
 
 const ReviewsDetail = ({ route }) => {
-  const { productName } = route.params;
+  const { productName, data } = route.params;
   const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
   const reviewData = [
@@ -61,7 +62,16 @@ const ReviewsDetail = ({ route }) => {
                 flexDirection: "row",
                 alignItems: "center",
               }}
-              onPress={() => setModalVisible(true)}
+              onPress={() => {
+                showMessage({
+                  message: "Амжилттай",
+                  description: "Бүртээгдэхүүний сэтгэгдэл илгээгдлээ",
+                  type: "success",
+                  duration: 2000,
+                });
+
+                setModalVisible(false);
+              }}
             >
               <SimpleLineIcons name="note" size={16} color="#2F80ED" />
               <Text style={{ color: "#2F80ED", marginLeft: 4 }}>
@@ -80,74 +90,79 @@ const ReviewsDetail = ({ route }) => {
               <Text
                 style={{ fontSize: 16, fontWeight: "700", color: "#F2994A" }}
               >
-                4.6
+                {data.ratingAVG}
                 <Text> out of 5</Text>
               </Text>
               <Text
                 style={{ fontSize: 16, fontWeight: "700", color: "#BDBDBD" }}
               >
-                16 rating
+                {data.reviews.length || 0} rating
               </Text>
             </View>
             <View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Feather name="chevron-up" size={20} color="#27AE60" />
-                <Text style={{ color: "#27AE60" }}>10</Text>
+                <Text style={{ color: "#27AE60" }}>{data.positive}</Text>
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Feather name="chevron-down" size={20} color="#EB5757" />
-                <Text style={{ color: "#EB5757" }}>6</Text>
+                <Text style={{ color: "#EB5757" }}>{data.negative}</Text>
               </View>
             </View>
           </View>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {reviewData.map((review) => (
-              <View
-                key={review.fullName}
-                style={[styles.detailContainer, styles.carouselItem]}
-              >
-                <View>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Image
-                      source={{
-                        uri: "https://user-images.trustpilot.com/6262794dad301800124141d5/64x64.png",
-                      }}
-                      style={{ width: 40, height: 40, borderRadius: 20 }}
-                    />
-                    <View style={{ marginLeft: 8 }}>
-                      <Ratings count={review.rating} />
+            {data.reviews &&
+              data?.reviews?.map((review) => (
+                <View
+                  key={review.fullName}
+                  style={[styles.detailContainer, styles.carouselItem]}
+                >
+                  <View>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <Image
+                        source={{
+                          uri: "https://user-images.trustpilot.com/6262794dad301800124141d5/64x64.png",
+                        }}
+                        style={{ width: 40, height: 40, borderRadius: 20 }}
+                      />
+                      <View style={{ marginLeft: 8 }}>
+                        <Ratings count={review.rating} />
+                      </View>
+                    </View>
+                    <View style={{ marginTop: 16 }}>
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          color: "#1b1b21",
+                        }}
+                      >
+                        {review.fullName}
+                        <Text
+                          style={{ marginHorizontal: 4, fontWeight: "400" }}
+                        >
+                          {" "}
+                          reviewed{" "}
+                        </Text>
+                        <Text style={{ fontWeight: "600", color: "#1b1b21" }}>
+                          {review.reviewed}
+                        </Text>
+                      </Text>
+                    </View>
+                    <View style={{ marginTop: 16 }}>
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          color: "#1b1b21",
+                        }}
+                      >
+                        {review.review}
+                      </Text>
                     </View>
                   </View>
-                  <View style={{ marginTop: 16 }}>
-                    <Text
-                      style={{
-                        fontWeight: "600",
-                        color: "#1b1b21",
-                      }}
-                    >
-                      {review.fullName}
-                      <Text style={{ marginHorizontal: 4, fontWeight: "400" }}>
-                        {" "}
-                        reviewed{" "}
-                      </Text>
-                      <Text style={{ fontWeight: "600", color: "#1b1b21" }}>
-                        {review.reviewed}
-                      </Text>
-                    </Text>
-                  </View>
-                  <View style={{ marginTop: 16 }}>
-                    <Text
-                      style={{
-                        fontWeight: "600",
-                        color: "#1b1b21",
-                      }}
-                    >
-                      {review.review}
-                    </Text>
-                  </View>
                 </View>
-              </View>
-            ))}
+              ))}
             <View height={200} />
           </ScrollView>
         </View>
